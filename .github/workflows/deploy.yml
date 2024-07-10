@@ -68,7 +68,7 @@ jobs:
         run: |
           mkdir -p build/libs
           mv build-artifacts/*.jar build/libs/
-          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/gitHubActionStudy:latest .
+          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/githubactionstudy:latest .
 
       - name: Push Docker image
-        run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/gitHubActionStudy:latest
+        run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/githubactionstudy:latest
