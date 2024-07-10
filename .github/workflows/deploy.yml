@@ -1,4 +1,4 @@
-name: Deploy dev server to AWS EC2
+name: Deploy to Docker Hub
 
 on:
   push:
