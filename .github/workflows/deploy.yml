@@ -72,3 +72,26 @@ jobs:
 
       - name: Push Docker image
         run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/githubactionstudy:latest
+
+  deploy:
+    name: Deploy to EC2
+    runs-on: ubuntu-latest
+    needs: push
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v4
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.AWS_EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.AWS_EC2_SSH_KEY }}
+          script: |
+            echo "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}" | docker login --username ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
+            cd /home/ubuntu
+            export SECRET_VALUE=${{ secrets.SECRET_VALUE}}
+            docker-compose down || true
+            docker rm -f hobbyweekly-dev || true
+            docker-compose pull app
+            docker-compose up -d
