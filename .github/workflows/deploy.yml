@@ -91,7 +91,8 @@ jobs:
             echo "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}" | docker login --username ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
             cd /home/ubuntu
             export SECRET_VALUE=${{ secrets.SECRET_VALUE}}
+            export DOCKER_HUB_USERNAME=${{ secrets.DOCKER_HUB_USERNAME }}
             docker-compose down || true
-            docker rm -f hobbyweekly-dev || true
+            docker rm -f $(docker ps -a -q) || true
             docker-compose pull app
             docker-compose up -d
