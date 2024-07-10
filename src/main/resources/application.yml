@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: gitHubActionStudy
+  profiles:
+    active: {spring.profiles.active}
+    include: secret
