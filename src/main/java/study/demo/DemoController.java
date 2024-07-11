@@ -27,4 +27,9 @@ public class DemoController {
     public String secret() {
         return "Secret value: " + secretValue;
     }
+
+    @GetMapping("/test")
+    public String test() {
+        return "Test";
+    }
 }
