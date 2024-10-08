@@ -3,6 +3,8 @@ name: Deploy to Docker Hub
 on:
   push:
     branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
   workflow_dispatch:
 
 jobs:
@@ -34,7 +36,6 @@ jobs:
       !contains(github.event.head_commit.message, 'skip deploy') &&
       !contains(github.event.pull_request.title, 'skip deploy') &&
       !contains(github.event.pull_request.body, 'skip deploy')
-
     permissions:
       contents: read
     steps:
